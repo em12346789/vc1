@@ -1,0 +1,18 @@
+name: VC1
+on: workflow_dispatch
+permissions:
+  contents: write
+env: 
+  F_PASS: ${{ secrets.F_PASS }}
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: | 
+          wget 'https://github.com/em12346789/f701/releases/download/f701/f701.7z'
+          7z x -y -p"$F_PASS" f701.7z
+      - run: php pre.php
+      - run: php job.php
+      - run: php post.php
